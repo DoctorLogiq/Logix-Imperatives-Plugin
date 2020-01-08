@@ -1,2 +1,129 @@
-# TODO: Description
+# --------------------------------------------------------------------------------------------------
+# Logix Imperatives config file.
+# For extra information, see the bottom of this file.
+# Formatting codes use the section symbol ( § ). On Windows, you can type this by holding ALT and pressing
+#   2, then 1, on the numpad, then releasing ALT. Alternatively, you can copy-paste it.
+# Wildcards are used where we don't want to essentially hard-code something (such as a formatting code). It is
+#   strongly recommended to keep them wherever they are used, in order to maintain plugin functionality.
+# --------------------------------------------------------------------------------------------------
+
+# Enable debug messages. These are extra pieces of information useful if you think the plugin may not be working correctly.
+# Default: true
 EnableDebugMessages: true
+
+# The format to use when a player writes a message in chat.
+# Accepts formatting codes.
+# Variables:
+#   - %ROLE% - the role of the player who sent the message
+#   - %NAME% - the name of the player who sent the message
+#   - %MESSAGE% - the message the player sent
+# Wildcards:
+#   - §w1 - the player's customised name colour
+# Default: "§8[%ROLE%§8]§o §w1%NAME%§8 says §7%MESSAGE%"
+# Minecraft default: "§r<%NAME%> %MESSAGE%"
+ChatMessageFormat: "§8[%ROLE%§8]§o §w1%NAME%§8 says §7%MESSAGE%"
+
+# The format to use in the broadcast that is sent when a player dies.
+# Accepts formatting codes.
+# Variables:
+#   - %NAME% - the name of the player who died
+#   - %MESSAGE% - the death message*
+# Wildcards:
+#   - §w1 - the player's customised name colour
+# *has the player's name removed so that you can format the name differently if desired
+# Default: "§o§w%NAME%§4 %MESSAGE%"
+DeathMessageFormat: "§o§w%NAME%§4 %MESSAGE%"
+
+# The format to use in the broadcast when a player uses /f to pay respects to a fallen comrade.
+# Accepts formatting codes.
+# Variables:
+#   - %NAME1% - the name of the player who is paying their respects
+#   - %NAME2% - the name of the player who persished (is having respects paid to)
+#   - %MESSAGE% - the death message*
+# Wildcards:
+#   - §w1 - the customised name colour of the player who is paying their respects
+#   - §w2 - the customised name colour of the player who perished (is having respects paid to)
+# Default: "§o§w1%NAME1%§d pays their respects to §w2%NAME2%§d!"
+RespectsMessageFormat: "§o§w1%NAME1%§d pays their respects to §w2%NAME2%§d!"
+
+# A list of possible messages to be used in the broadcast when a new player logs in.
+# Accepts formatting codes.
+# Variables:
+#   - %NAME% - the name of the player who logged in
+# Wildcards:
+#   - §w1 - the player's customised name colour
+WelcomeMessagesNewPlayers:
+  - "§o§w1%NAME%§a is new here, be sure to give them a warm welcome!"
+
+# A list of possible messages to be used in the broadcast when a new player logs in.
+# Accepts formatting codes.
+# Variables:
+#   - %NAME% - the name of the player who logged in
+# Wildcards:
+#   - §w1 - the player's customised name colour
+WelcomeMessagesReturningPlayers:
+  - "§o§aOh noes, §w1%NAME%§a is here!"
+  - "§o§w1%NAME%§a is here to wreak havoc!"
+
+# A list of roles (essentially tags that go next to the name in chat, if used in ChatMessageFormat).
+# Accepts formatting codes. These are strongly recommended here.
+Roles:
+  - "§cOwner"
+  - "§aAdmin"
+  - "§eMod"
+  - "§7User"
+  - "§4Dev"
+
+# The default role to give players when they first join
+DefaultRole: "§7User"
+
+# The default role to give to OPs when they first join
+DefaultOperatorRole: "§aAdmin"
+
+# The default colour to give player's names in chat, until they customise it.
+DefaultNameColour: "§9"
+
+# Whether or not to allow players to use the /colour command.
+AllowNameColourCustomisation: true
+
+# --------------------------------------------------------------------------------------------------
+# Do not modify values below this line unless ABSOLUTELY NECESSARY.
+# To be set internally by the plugin. May be overridden by the plugin at any time.
+# Modifying any lines below here is unwise as it may break the plugin. Make a backup of
+# this config before making any changes, and again, ONLY IF YOU MUST.
+# --------------------------------------------------------------------------------------------------
+
+# Per-player data. Leave testplayer in until you have at least one other player in there, after
+# which you can then choose to keep or remove testplayer. If you leave PlayerData blank, new players
+# will not have their data saved and the plugin will not work. It's very unlikely somebody's actually
+# called TestPlayer!
+PlayerData:
+  testplayer:
+    - "§8Test"
+    - "§8"
+
+# --------------------------------------------------------------------------------------------------
+# Formatting codes:
+# --------------------------------------------------------------------------------------------------
+# BLACK: §0
+# DARK_BLUE: §1
+# DARK_GREEN: §2
+# DARK_AQUA: §3
+# DARK_RED: §4
+# DARK_PURPLE: §5
+# GOLD: §6
+# GRAY: §7
+# DARK_GRAY: §8
+# BLUE: §9
+# GREEN: §a
+# AQUA: §b
+# RED: §c
+# LIGHT_PURPLE: §d
+# YELLOW: §e
+# WHITE: §f
+# MAGIC: §k
+# BOLD: §l
+# STRIKETHROUGH: §m
+# UNDERLINE: §n
+# ITALIC: §o
+# RESET: §r

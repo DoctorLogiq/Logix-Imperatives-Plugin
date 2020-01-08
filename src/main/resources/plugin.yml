@@ -1,11 +1,12 @@
 name: LogixImperatives
-version: 0.2.0
+version: 1.0.0
 api-version: 1.13
 description: Adds a bunch of useful features designed to not affect gameplay but to improve the overall user experience.
 author: Dr. Logiq
 main: com.plugins.drlogiq.imperatives.Imperatives
 website: https://github.com/DoctorLogiq/Logix-Imperatives-Plugin
 prefix: Logix-Imperatives
+loadbefore: [Essentials, EssentialsChat]
 commands:
   website:
     description: Gives you a link to the plugin's GitHub page.

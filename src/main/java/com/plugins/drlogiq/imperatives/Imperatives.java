@@ -1,6 +1,7 @@
 package com.plugins.drlogiq.imperatives;
 
 import com.plugins.drlogiq.imperatives.config.ImperativesConfig;
+import com.plugins.drlogiq.imperatives.events.PlayerChatEvent;
 import com.plugins.drlogiq.imperatives.events.PlayerLoginEvent;
 import com.plugins.drlogiq.imperatives.utilities.Debug;
 import com.plugins.drlogiq.imperatives.utilities.VersionControl;
@@ -19,10 +20,17 @@ public class Imperatives extends JavaPlugin
         Instance = this;
         Debug.initialize(getLogger()); // NOTE(LOGIQ): Must be first, because all functions following this will be logging things.
         ImperativesConfig.load();
-        VersionControl.checkForUpdates();
+        // TODO(LOGIQ): Verify all PlayerData roles
+        VersionControl.checkForUpdates(false);
+
+        // Schedule periodic update check
+        // TODO(LOGIQ): Configurable period?
+        final int update_check_period_ticks = (20 * 60 * 5);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> VersionControl.checkForUpdates(true), update_check_period_ticks, update_check_period_ticks);
 
         // Register event handlers
         getServer().getPluginManager().registerEvents(PlayerLoginEvent.Instance, this);
+        getServer().getPluginManager().registerEvents(PlayerChatEvent.Instance, this);
     }
 
     @Override
@@ -31,10 +39,14 @@ public class Imperatives extends JavaPlugin
 
     }
 
-    public void disable(String reason)
+    public void disable(String reason, boolean exceptionDetailsToFollow)
     {
         Debug.logError("Disabling Logix-Imperatives at the plugin's own request.", true);
         Debug.logError("Reason: " + reason, true);
+        if (exceptionDetailsToFollow)
+        {
+            Debug.logError("Exception details to follow:");
+        }
         getServer().getPluginManager().disablePlugin(this);
     }
 
@@ -44,7 +56,6 @@ public class Imperatives extends JavaPlugin
         return Instance;
     }
 
-    // TODO(LOGIQ): Verify formatting on all of these
     // TODO(LOGIQ): Make "[Logix-Imperatives] tag toggleable in config
     public static void sendMessage(final Player player, final String message)
     {
@@ -53,22 +64,22 @@ public class Imperatives extends JavaPlugin
 
     public static void sendDebugMessage(final Player player, final String message)
     {
-        player.sendMessage(ITALIC + "" + DARK_GRAY + "[Logix-Imperatives // DEBUG] " + message);
+        player.sendMessage(ITALIC + "" + DARK_GRAY + "[Logix-Imperatives] Debug: " + message);
     }
 
     public static void sendWarningMessage(final Player player, final String message)
     {
-        player.sendMessage(ITALIC + "" + GOLD + "[Logix-Imperatives // WARNING] " + message);
+        player.sendMessage(ITALIC + "" + GOLD + "[Logix-Imperatives] Warning: " + message);
     }
 
     public static void sendErrorMessage(final Player player, final String message)
     {
-        player.sendMessage(ITALIC + "" + RED + "[Logix-Imperatives // ERROR] : " + DARK_RED + message);
+        player.sendMessage(ITALIC + "" + RED + "[Logix-Imperatives] Error: " + DARK_RED + message);
     }
 
     public static void sendSuccessMessage(final Player player, final String message)
     {
-        player.sendMessage(ITALIC + "" + GREEN + "[Logix-Imperatives // SUCCESS] : " + DARK_GREEN + message);
+        player.sendMessage(ITALIC + "" + GREEN + "[Logix-Imperatives] Success: " + DARK_GREEN + message);
     }
 
     public static String getReportMessage()

@@ -19,7 +19,7 @@ public class VersionControl
     public static boolean IsUpdateAvailable;
     public static boolean IsUpdateRecommended;
 
-    public static void checkForUpdates()
+    public static void checkForUpdates(boolean silent)
     {
         // Attempt to load the latest version from GitHub
         try
@@ -66,15 +66,15 @@ public class VersionControl
         // Log to server console
         if (IsUpdateAvailable)
         {
-            Debug.log("An update for Logix-Imperatives is available!");
-            Debug.log("Your version: " + CurrentVersion.toString() + " (" + CurrentVersionName + ") - " + CurrentVersionDescription);
-            Debug.log("Latest version: " + LatestVersion.toString() + " (" + LatestVersionName + ") - " + LatestVersionDescription);
+            Debug.log("An update for Logix-Imperatives is available!", true);
+            Debug.log("Your version: " + CurrentVersion.toString() + " (" + CurrentVersionName + ") - " + CurrentVersionDescription, true);
+            Debug.log("Latest version: " + LatestVersion.toString() + " (" + LatestVersionName + ") - " + LatestVersionDescription, true);
             if (IsUpdateRecommended)
             {
-                Debug.logWarning("This update is strongly recommended!");
+                Debug.logWarning("This update is strongly recommended!", true);
             }
         }
-        else
+        else if (!silent)
         {
             Debug.log("Current version: " + CurrentVersion.toString() + " (latest). No updates are available currently. Happy Minecrafting!");
         }
