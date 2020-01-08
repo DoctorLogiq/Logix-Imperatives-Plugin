@@ -1,0 +1,32 @@
+name: LogixImperatives
+version: 0.2.0
+api-version: 1.13
+description: Adds a bunch of useful features designed to not affect gameplay but to improve the overall user experience.
+author: Dr. Logiq
+main: com.plugins.drlogiq.imperatives.Imperatives
+website: https://github.com/DoctorLogiq/Logix-Imperatives-Plugin
+prefix: Logix-Imperatives
+commands:
+  website:
+    description: Gives you a link to the plugin's GitHub page.
+    usage: /<command>
+  refresh:
+    description: Refreshes config values so you don't need to do a full reload. OP only.
+    usage: /<command>
+  f:
+    description: Pay your respects to a fallen comrade.
+    usage: /<command>
+    aliases:
+      - payRespects
+  colour:
+    description: Sets your chat colour.
+    usage: /<command> [Colour]
+  tagList:
+    description: Lists available tags loaded from your config, and their indexes. OP only.
+    usage: /<command>
+  setTag:
+    description: Sets the tag index for the target player. Use /tagList to get a list of valid indexes. OP only.
+    usage: /<command> [Player] [Index]
+  debug:
+    description: For the developer only.
+    usage: /<command>
