@@ -2,7 +2,6 @@ package com.plugins.drlogiq.imperatives.events;
 
 import com.plugins.drlogiq.imperatives.config.ImperativesConfig;
 import com.plugins.drlogiq.imperatives.playerdata.PlayerData;
-import com.plugins.drlogiq.imperatives.utilities.Debug;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,31 +16,24 @@ public class PlayerChatEvent implements Listener
     {
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST) // NOTE(LOGIQ): This seems to be needed in order for this to work
     void onPlayerChat(AsyncPlayerChatEvent event)
     {
         final Player player = event.getPlayer();
         final String originalMessage = event.getMessage();
 
         // NOTE(LOGIQ): Original format = §r<%1$s> %2$s
-
-        String format = ImperativesConfig.getString(ImperativesConfig.Keys.ChatMessageFormat, true);
+        String newFormat = ImperativesConfig.getString(ImperativesConfig.Keys.ChatMessageFormat, true);
 
         PlayerData playerData = ImperativesConfig.getOrCreatePlayerData(player);
-        if (playerData != null)
-        {
-            format = format.replace("%ROLE%", playerData.role);
-            format = format.replace("%NAME%", "%1$s");
-            format = format.replace("%MESSAGE%", "%2$s");
-            format = format.replace("§w1", playerData.colour);
-            // TODO(LOGIQ): Replace wildcard
+        newFormat = newFormat.replace("%ROLE%",
+                                      playerData != null ? playerData.role : ImperativesConfig.getString(
+                                              !player.isOp() ? ImperativesConfig.Keys.DefaultRole : ImperativesConfig.Keys.DefaultOperatorRole,
+                                              true));
+        newFormat = newFormat.replace("%NAME%", "%1$s");
+        newFormat = newFormat.replace("%MESSAGE%", "%2$s");
+        newFormat = newFormat.replace("§w1", playerData != null ? playerData.colour : ImperativesConfig.getString(ImperativesConfig.Keys.DefaultNameColour, true));
 
-            event.setFormat(format);
-        }
-        else
-        {
-            Debug.logDebug("No PlayerData", true); // TEMPORARY
-            // TODO(LOGIQ): No player data
-        }
+        event.setFormat(newFormat);
     }
 }

@@ -17,15 +17,10 @@ commands:
   f:
     description: Pay your respects to a fallen comrade.
     usage: /<command>
-    aliases:
-      - payRespects
   colour:
     description: Sets your chat colour.
     usage: /<command> [Colour]
-  tagList:
-    description: Lists available tags loaded from your config, and their indexes. OP only.
-    usage: /<command>
-  setTag:
+  setRole:
     description: Sets the tag index for the target player. Use /tagList to get a list of valid indexes. OP only.
     usage: /<command> [Player] [Index]
   debug:

@@ -32,6 +32,8 @@ public class ImperativesConfig
         public static final String RespectsMessageFormat = "RespectsMessageFormat";
         public static final String WelcomeMessagesNewPlayers = "WelcomeMessagesNewPlayers";
         public static final String WelcomeMessagesReturningPlayers = "WelcomeMessagesReturningPlayers";
+        public static final String PersonalWelcomeMessagesNewPlayers = "PersonalWelcomeMessagesNewPlayers";
+        public static final String PersonalWelcomeMessagesReturningPlayers = "PersonalWelcomeMessagesReturningPlayers";
         public static final String DefaultNameColour = "DefaultNameColour";
         public static final String Roles = "Roles";
         public static final String DefaultRole = "DefaultRole";
@@ -97,6 +99,8 @@ public class ImperativesConfig
         loadString(Keys.RespectsMessageFormat);
         loadStringList(Keys.WelcomeMessagesNewPlayers);
         loadStringList(Keys.WelcomeMessagesReturningPlayers);
+        loadStringList(Keys.PersonalWelcomeMessagesNewPlayers);
+        loadStringList(Keys.PersonalWelcomeMessagesReturningPlayers);
         loadString(Keys.DefaultNameColour);
         loadStringList(Keys.Roles);
         loadString(Keys.DefaultRole);
@@ -296,5 +300,21 @@ public class ImperativesConfig
         }
 
         return ConfigPlayerData.get(key);
+    }
+
+    public static boolean save()
+    {
+        try
+        {
+            config.save(File);
+            Debug.logDebug("Config saved");
+            return true;
+        }
+        catch (final IOException exception)
+        {
+            Debug.logError("Config save failed!");
+            exception.printStackTrace();
+            return false;
+        }
     }
 }

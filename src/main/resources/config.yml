@@ -19,9 +19,9 @@ EnableDebugMessages: true
 #   - %MESSAGE% - the message the player sent
 # Wildcards:
 #   - §w1 - the player's customised name colour
-# Default: "§8[%ROLE%§8]§o §w1%NAME%§8 says §7%MESSAGE%"
+# Default: "§8[%ROLE%§8] §w1%NAME%§8 says §7%MESSAGE%"
 # Minecraft default: "§r<%NAME%> %MESSAGE%"
-ChatMessageFormat: "§8[%ROLE%§8]§o §w1%NAME%§8 says §7%MESSAGE%"
+ChatMessageFormat: "§8[%ROLE%§8] §w1%NAME%§8 says §7%MESSAGE%"
 
 # The format to use in the broadcast that is sent when a player dies.
 # Accepts formatting codes.
@@ -30,21 +30,20 @@ ChatMessageFormat: "§8[%ROLE%§8]§o §w1%NAME%§8 says §7%MESSAGE%"
 #   - %MESSAGE% - the death message*
 # Wildcards:
 #   - §w1 - the player's customised name colour
-# *has the player's name removed so that you can format the name differently if desired
-# Default: "§o§w%NAME%§4 %MESSAGE%"
-DeathMessageFormat: "§o§w%NAME%§4 %MESSAGE%"
+# *has the player's name removed so that you can format the name separetely if desired
+# Default: "§w1§o%NAME%§4§o %MESSAGE%"
+DeathMessageFormat: "§w1§o%NAME%§4§o %MESSAGE%"
 
 # The format to use in the broadcast when a player uses /f to pay respects to a fallen comrade.
 # Accepts formatting codes.
 # Variables:
 #   - %NAME1% - the name of the player who is paying their respects
 #   - %NAME2% - the name of the player who persished (is having respects paid to)
-#   - %MESSAGE% - the death message*
 # Wildcards:
 #   - §w1 - the customised name colour of the player who is paying their respects
 #   - §w2 - the customised name colour of the player who perished (is having respects paid to)
-# Default: "§o§w1%NAME1%§d pays their respects to §w2%NAME2%§d!"
-RespectsMessageFormat: "§o§w1%NAME1%§d pays their respects to §w2%NAME2%§d!"
+# Default: "§w1§o%NAME1%§d§o pays their respects to §w2§o%NAME2%§d!"
+RespectsMessageFormat: "§w1§o%NAME1%§d§o pays their respects to §w2§o%NAME2%§d!"
 
 # A list of possible messages to be used in the broadcast when a new player logs in.
 # Accepts formatting codes.
@@ -53,17 +52,32 @@ RespectsMessageFormat: "§o§w1%NAME1%§d pays their respects to §w2%NAME2%§d!
 # Wildcards:
 #   - §w1 - the player's customised name colour
 WelcomeMessagesNewPlayers:
-  - "§o§w1%NAME%§a is new here, be sure to give them a warm welcome!"
+  - "§r§o§w1%NAME%§a is new here, be sure to give them a warm welcome!"
 
-# A list of possible messages to be used in the broadcast when a new player logs in.
+# A list of possible messages to be used in the broadcast when a returning player logs in.
 # Accepts formatting codes.
 # Variables:
 #   - %NAME% - the name of the player who logged in
 # Wildcards:
 #   - §w1 - the player's customised name colour
 WelcomeMessagesReturningPlayers:
-  - "§o§aOh noes, §w1%NAME%§a is here!"
-  - "§o§w1%NAME%§a is here to wreak havoc!"
+  - "§a§oOh noes, §w1§o%NAME%§a§o is here!"
+  - "§w1§o%NAME%§a§o is here to wreak havoc!"
+  - "§w1§o%NAME%§a§o chose the §cred §apill!"
+  - "§a§oQuick! Everybody hide, §w1§o%NAME%§a§o has appeared!"
+
+# A list of possible messages to send to new players when they log in.
+# Accepts formatting codes.
+PersonalWelcomeMessagesNewPlayers:
+  - "§2§oPlease follow the rules, and most importantly, have fun!"
+
+# A list of possible messages to send to returning players when they log in.
+# Accepts formatting codes.
+PersonalWelcomeMessagesReturningPlayers:
+  - "§2§oWelcome back, so much has happened while you were gone!"
+  - "§2§oYou should have taken the §9blue §2pill!"
+  - "§2§oThis server is powered by hamsters, please be sure to feed them!"
+  - "§2§oWell well well... what do we have here?"
 
 # A list of roles (essentially tags that go next to the name in chat, if used in ChatMessageFormat).
 # Accepts formatting codes. These are strongly recommended here.
@@ -74,7 +88,7 @@ Roles:
   - "§7User"
   - "§4Dev"
 
-# The default role to give players when they first join
+# The default role to give non-OP players when they first join
 DefaultRole: "§7User"
 
 # The default role to give to OPs when they first join

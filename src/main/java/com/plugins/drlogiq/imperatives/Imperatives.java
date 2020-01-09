@@ -1,6 +1,11 @@
 package com.plugins.drlogiq.imperatives;
 
+import com.plugins.drlogiq.imperatives.commands.CommandColour;
+import com.plugins.drlogiq.imperatives.commands.CommandPayRespects;
+import com.plugins.drlogiq.imperatives.commands.CommandRefresh;
+import com.plugins.drlogiq.imperatives.commands.CommandSetRole;
 import com.plugins.drlogiq.imperatives.config.ImperativesConfig;
+import com.plugins.drlogiq.imperatives.events.DeathEvents;
 import com.plugins.drlogiq.imperatives.events.PlayerChatEvent;
 import com.plugins.drlogiq.imperatives.events.PlayerLoginEvent;
 import com.plugins.drlogiq.imperatives.utilities.Debug;
@@ -8,10 +13,15 @@ import com.plugins.drlogiq.imperatives.utilities.VersionControl;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+import java.util.Random;
+
 import static org.bukkit.ChatColor.*;
 
+// TODO(LOGIQ): Make config contain ALL comments (ugh, Spigot, WHYYY)
 public class Imperatives extends JavaPlugin
 {
+    public static final Random RNG = new Random();
     private static Imperatives Instance;
 
     @Override
@@ -31,6 +41,13 @@ public class Imperatives extends JavaPlugin
         // Register event handlers
         getServer().getPluginManager().registerEvents(PlayerLoginEvent.Instance, this);
         getServer().getPluginManager().registerEvents(PlayerChatEvent.Instance, this);
+        getServer().getPluginManager().registerEvents(DeathEvents.Instance, this);
+
+        // Register command handlers
+        Objects.requireNonNull(getCommand("f")).setExecutor(new CommandPayRespects());
+        Objects.requireNonNull(getCommand("colour")).setExecutor(new CommandColour());
+        Objects.requireNonNull(getCommand("setRole")).setExecutor(new CommandSetRole());
+        Objects.requireNonNull(getCommand("refresh")).setExecutor(new CommandRefresh());
     }
 
     @Override
