@@ -1,6 +1,9 @@
 # Logix Imperatives
 This is a Spigot 1.15.1 plugin which adds a bunch of useful features designed to not affect gameplay in any way, but to improve the overall user experience.
 
+## <!> WARNING <!>
+Version 1.0.0 contains a bug; when using /setrole, the tab-completions list will assist you in knowing the index of the role you want, however you MUST type the NUMBER of the role (shown in parentheses), because if you use the tab-completion it will crash you (not the server).
+
 ## Features:
  - Custom join messages for new and returning players, with extra messages to send directly to the player as they join
  - Custom death message formatting
