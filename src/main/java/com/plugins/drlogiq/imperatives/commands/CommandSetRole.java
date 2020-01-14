@@ -4,7 +4,7 @@ import com.plugins.drlogiq.imperatives.Imperatives;
 import com.plugins.drlogiq.imperatives.config.ImperativesConfig;
 import com.plugins.drlogiq.imperatives.playerdata.PlayerData;
 import com.plugins.drlogiq.imperatives.utilities.PlayerHelper;
-import org.bukkit.ChatColor;
+import com.plugins.drlogiq.imperatives.utilities.StringHelper;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandSetRole implements CommandExecutor, TabCompleter
 {
@@ -28,8 +29,15 @@ public class CommandSetRole implements CommandExecutor, TabCompleter
                 return true;
             }
 
-            if (args.length == 2)
+            if (args.length > 2)
             {
+                StringBuilder text = new StringBuilder();
+                for (int i = 1; i < args.length; ++i)
+                {
+                    text.append(args[i]).append(" ");
+                }
+                text = new StringBuilder(text.toString().trim());
+
                 Player target = Imperatives.getInstance().getServer().getPlayer(args[0]);
                 if (target == null)
                 {
@@ -43,8 +51,7 @@ public class CommandSetRole implements CommandExecutor, TabCompleter
                     int index;
                     try
                     {
-                        args[1] = args[1].replaceAll("[^0-9]", "");
-                        index = Integer.parseInt(args[1]);
+                        index = Integer.parseInt(text.toString().replaceAll("[^0-9]", ""));
                     }
                     catch (final Exception exception)
                     {
@@ -100,7 +107,8 @@ public class CommandSetRole implements CommandExecutor, TabCompleter
             List<String> roles = ImperativesConfig.getStringList(ImperativesConfig.Keys.Roles, true);
             for (int i = 0; i < roles.size(); ++i)
             {
-                COMMANDS.add(ChatColor.RESET + roles.get(i).replace("§", "") + " (" + i + ")");
+                String suggestion = "\"" + StringHelper.removeColourCodes(roles.get(i)) + " (" + i + ")\"";
+                COMMANDS.add(suggestion);
             }
 
             return (args.length == 2) ? StringUtil.copyPartialMatches(args[1], COMMANDS, new ArrayList<>()) : null;

@@ -18,6 +18,6 @@ public class PlayerData
     @Override
     public String toString()
     {
-        return "PlayerData -> [role: " + role + ", colour: " + colour.replace("§", "") + "]";
+        return "PlayerData -> [role: " + role + ", colour: " + colour.replace("§", "") + ", note: \"" + note + "\"]";
     }
 }

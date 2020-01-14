@@ -1,8 +1,10 @@
 # Logix Imperatives
 This is a Spigot 1.15.1 plugin which adds a bunch of useful features designed to not affect gameplay in any way, but to improve the overall user experience.
 
-## <!> WARNING <!>
-Version 1.0.0 contains a bug; when using /setrole, the tab-completions list will assist you in knowing the index of the role you want, however you MUST type the NUMBER of the role (shown in parentheses), because if you use the tab-completion it will crash you (not the server).
+## Changelog 
+### 1.0.1
+ - Fixed the bug with `/setRole`. Tab-completion now works with this command!
+ - Added a `/note` command. Now you can store 1 note to help you remember things.
 
 ## Features:
  - Custom join messages for new and returning players, with extra messages to send directly to the player as they join
@@ -31,6 +33,7 @@ Version 1.0.0 contains a bug; when using /setrole, the tab-completions list will
     - dark_purple
  - `/setRole [Player] [Role]`: OP only; sets the role for a given player from the selection available in the config (customizable)
  - `/refresh`: OP only; saves and then loads the config. This may override any changes made to the config since the last time the plugin was enabled. (an argument to not save may come in a later version) 
+ - ` /role [Set/Show/Clear] [Text]`: Sets/clears/shows your note. Currently you can have only one note (due to programming constraints). This may change in the future to allow for more.
 
 ## Server owners
 Please update as soon as possible to the new version (1.0.0). Remove your old config file and plugin from your server before adding the new one.

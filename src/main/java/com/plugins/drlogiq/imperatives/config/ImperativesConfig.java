@@ -260,7 +260,7 @@ public class ImperativesConfig
                 {
                     list.add("");
                 }
-                else if (list.size() == 3) // NOTE: Number of items in PlayerData
+                if (list.size() == 3) // NOTE: Number of items in PlayerData
                 {
                     ConfigPlayerData.put(key, new PlayerData(list.get(0), list.get(1), list.get(2)));
                     Debug.log("Loaded player data for '" + key + "': " + ConfigPlayerData.get(key).toString());

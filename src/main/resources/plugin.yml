@@ -26,3 +26,6 @@ commands:
   debug:
     description: For the developer only.
     usage: /<command>
+  note:
+    description: Sets your note (useful for jotting something down). Put the note in quotation marks.
+    usage: /<command> [show|set|clear] [text (if using 'set')]

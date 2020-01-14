@@ -16,7 +16,6 @@ import java.util.Random;
 import static org.bukkit.ChatColor.*;
 
 // TODO(LOGIQ): Make config contain ALL comments (ugh, Spigot, WHYYY)
-// TODO(LOGIQ): Implement /debug
 public class Imperatives extends JavaPlugin
 {
     public static final Random RNG = new Random();
@@ -28,14 +27,11 @@ public class Imperatives extends JavaPlugin
         Instance = this;
         Debug.initialize(getLogger()); // NOTE(LOGIQ): Must be first, because all functions following this will be logging things.
         ImperativesConfig.load();
-        // TODO(LOGIQ): Verify all PlayerData roles
-        VersionControl.checkForUpdates(false, true); // TODO(LOGIQ): Set dev to false!
+        VersionControl.checkForUpdates(false, false);
 
         // Schedule periodic update check
-        // TODO(LOGIQ): Configurable period?
         final int update_check_period_ticks = (20 * 60 * 5);
-        // TODO(LOGIQ): Set dev to false!
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> VersionControl.checkForUpdates(true, true), update_check_period_ticks, update_check_period_ticks);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> VersionControl.checkForUpdates(true, false), update_check_period_ticks, update_check_period_ticks);
 
         // Register event handlers
         getServer().getPluginManager().registerEvents(PlayerLoginEvent.Instance, this);
@@ -48,6 +44,7 @@ public class Imperatives extends JavaPlugin
         Objects.requireNonNull(getCommand("setRole")).setExecutor(new CommandSetRole());
         Objects.requireNonNull(getCommand("refresh")).setExecutor(new CommandRefresh());
         Objects.requireNonNull(getCommand("debug")).setExecutor(new CommandDebug());
+        Objects.requireNonNull(getCommand("note")).setExecutor(new CommandNote());
     }
 
     @Override
@@ -73,7 +70,6 @@ public class Imperatives extends JavaPlugin
         return Instance;
     }
 
-    // TODO(LOGIQ): Make "[Logix-Imperatives] tag toggleable in config
     public static void sendMessage(final Player player, final String message)
     {
         player.sendMessage(ITALIC + "" + DARK_GRAY + "[Logix-Imperatives] " + GRAY + message);
