@@ -1,9 +1,6 @@
 package com.plugins.drlogiq.imperatives;
 
-import com.plugins.drlogiq.imperatives.commands.CommandColour;
-import com.plugins.drlogiq.imperatives.commands.CommandPayRespects;
-import com.plugins.drlogiq.imperatives.commands.CommandRefresh;
-import com.plugins.drlogiq.imperatives.commands.CommandSetRole;
+import com.plugins.drlogiq.imperatives.commands.*;
 import com.plugins.drlogiq.imperatives.config.ImperativesConfig;
 import com.plugins.drlogiq.imperatives.events.DeathEvents;
 import com.plugins.drlogiq.imperatives.events.PlayerChatEvent;
@@ -19,6 +16,7 @@ import java.util.Random;
 import static org.bukkit.ChatColor.*;
 
 // TODO(LOGIQ): Make config contain ALL comments (ugh, Spigot, WHYYY)
+// TODO(LOGIQ): Implement /debug
 public class Imperatives extends JavaPlugin
 {
     public static final Random RNG = new Random();
@@ -48,6 +46,7 @@ public class Imperatives extends JavaPlugin
         Objects.requireNonNull(getCommand("colour")).setExecutor(new CommandColour());
         Objects.requireNonNull(getCommand("setRole")).setExecutor(new CommandSetRole());
         Objects.requireNonNull(getCommand("refresh")).setExecutor(new CommandRefresh());
+        Objects.requireNonNull(getCommand("debug")).setExecutor(new CommandDebug());
     }
 
     @Override
@@ -109,8 +108,8 @@ public class Imperatives extends JavaPlugin
         sendWarningMessage(player, getReportMessage());
     }
 
-    public static void sendOpOnlyMessage(final Player player)
+    public static void sendOpOnlyMessage(final Player player, boolean andDev)
     {
-        sendErrorMessage(player, "This command is for server operators (OPs) only.");
+        sendErrorMessage(player, "This command is for server operators (OPs)" + (andDev ? " and the plugin developer" : "") + " only.");
     }
 }

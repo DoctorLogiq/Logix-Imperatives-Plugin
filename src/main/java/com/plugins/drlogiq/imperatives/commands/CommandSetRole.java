@@ -3,6 +3,8 @@ package com.plugins.drlogiq.imperatives.commands;
 import com.plugins.drlogiq.imperatives.Imperatives;
 import com.plugins.drlogiq.imperatives.config.ImperativesConfig;
 import com.plugins.drlogiq.imperatives.playerdata.PlayerData;
+import com.plugins.drlogiq.imperatives.utilities.PlayerHelper;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,9 +22,9 @@ public class CommandSetRole implements CommandExecutor, TabCompleter
         if (sender instanceof Player)
         {
             final Player player = (Player) sender;
-            if (!player.isOp())
+            if (!PlayerHelper.playerIsOpOrDeveloper(player))
             {
-                Imperatives.sendOpOnlyMessage(player);
+                Imperatives.sendOpOnlyMessage(player, true);
                 return true;
             }
 
@@ -98,7 +100,7 @@ public class CommandSetRole implements CommandExecutor, TabCompleter
             List<String> roles = ImperativesConfig.getStringList(ImperativesConfig.Keys.Roles, true);
             for (int i = 0; i < roles.size(); ++i)
             {
-                COMMANDS.add(roles.get(i) + " (" + i + ")");
+                COMMANDS.add(ChatColor.RESET + roles.get(i).replace("§", "") + " (" + i + ")");
             }
 
             return (args.length == 2) ? StringUtil.copyPartialMatches(args[1], COMMANDS, new ArrayList<>()) : null;

@@ -4,6 +4,7 @@ import com.plugins.drlogiq.imperatives.Imperatives;
 import com.plugins.drlogiq.imperatives.playerdata.PlayerData;
 import com.plugins.drlogiq.imperatives.utilities.Debug;
 import com.plugins.drlogiq.imperatives.utilities.StringHelper;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -248,16 +249,20 @@ public class ImperativesConfig
     private static void loadAllPlayerData()
     {
         ConfigurationSection section = config.getConfigurationSection(Keys.PlayerData);
-        Set<String> keys = null;
+        Set<String> keys;
         if (section != null)
         {
             keys = section.getKeys(false);
             for (String key : keys)
             {
                 List<String> list = config.getStringList(Keys.PlayerData + "." + key);
-                if (list.size() == 2) // NOTE: Number of items in PlayerData
+                if (list.size() == 2) // NOTE: Update 1.0.1: add note
                 {
-                    ConfigPlayerData.put(key, new PlayerData(list.get(0), list.get(1)));
+                    list.add("");
+                }
+                else if (list.size() == 3) // NOTE: Number of items in PlayerData
+                {
+                    ConfigPlayerData.put(key, new PlayerData(list.get(0), list.get(1), list.get(2)));
                     Debug.log("Loaded player data for '" + key + "': " + ConfigPlayerData.get(key).toString());
                 }
                 else
@@ -284,8 +289,9 @@ public class ImperativesConfig
         List<String> newPlayerData = new ArrayList<>();
         newPlayerData.add(0, player.isOp() ? getString(Keys.DefaultOperatorRole, true) : getString(Keys.DefaultRole, true));
         newPlayerData.add(1, getString(Keys.DefaultNameColour, true));
+        newPlayerData.add(2, "");
         Objects.requireNonNull(section).set(key, newPlayerData);
-        ConfigPlayerData.put(key, new PlayerData(newPlayerData.get(0), newPlayerData.get(1)));
+        ConfigPlayerData.put(key, new PlayerData(newPlayerData.get(0), newPlayerData.get(1), newPlayerData.get(2)));
 
         try
         {
@@ -317,4 +323,42 @@ public class ImperativesConfig
             return false;
         }
     }
+
+    //region Debug Command
+
+    public static void Debug(Player player)
+    {
+        for (String key : ConfigIntegers.keySet())
+        {
+            player.sendMessage(ChatColor.GRAY + "Integer " + ChatColor.GOLD + "'" + key + "'" + ChatColor.GRAY + ": " + ChatColor.AQUA + ConfigIntegers.get(key));
+        }
+        for (String key : ConfigBooleans.keySet())
+        {
+            player.sendMessage(ChatColor.GRAY + "Bool " + ChatColor.GOLD + "'" + key + "'" + ChatColor.GRAY + ": " + ChatColor.BLUE + (ConfigBooleans.get(key) ? "True" : "False"));
+        }
+        for (String key : ConfigStrings.keySet())
+        {
+            player.sendMessage(ChatColor.GRAY + "String " + ChatColor.GOLD + "'" + key + "'" + ChatColor.GRAY + ": \"" + ChatColor.YELLOW + ConfigStrings.get(key).replace('§', '$') + "\"");
+        }
+        for (String key : ConfigStringLists.keySet())
+        {
+            player.sendMessage(ChatColor.GRAY + "StringList " + ChatColor.GOLD + "'" + key + "'" + ChatColor.GRAY + ":");
+            List<String> values = ConfigStringLists.get(key);
+            for (String value : values)
+            {
+                player.sendMessage(ChatColor.GRAY + "  - \"" + ChatColor.YELLOW + value.replace('§', '$') + "\"");
+            }
+        }
+        for (String key : ConfigPlayerData.keySet())
+        {
+            player.sendMessage(ChatColor.GRAY + "PlayerData for " + ChatColor.BLUE + "'" + key + "'" + ChatColor.GRAY + ":");
+            PlayerData values = ConfigPlayerData.get(key);
+            player.sendMessage(ChatColor.GRAY + "  - Role: " + values.role);
+            String colour = values.colour.replace("§", "");
+            player.sendMessage(ChatColor.GRAY + "  - Colour: " + colour + " (" + Objects.requireNonNull(ChatColor.getByChar(colour)).name() + ")");
+            player.sendMessage(ChatColor.GRAY + "  - Note: " + values.note);
+        }
+    }
+
+    //endregion
 }

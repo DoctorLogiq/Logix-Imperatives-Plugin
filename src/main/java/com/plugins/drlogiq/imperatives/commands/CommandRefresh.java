@@ -18,7 +18,7 @@ public class CommandRefresh implements CommandExecutor
             final Player player = (Player) sender;
             if (!player.isOp())
             {
-                Imperatives.sendOpOnlyMessage(player);
+                Imperatives.sendOpOnlyMessage(player, false);
                 return true;
             }
 

@@ -1,4 +1,4 @@
-0.2.0
-true
+1.0.1
+false
 Cement
 A complete plugin re-write

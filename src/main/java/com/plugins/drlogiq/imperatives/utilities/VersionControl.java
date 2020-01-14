@@ -8,7 +8,7 @@ import java.net.URLConnection;
 
 public class VersionControl
 {
-    public static final Version CurrentVersion = new Version("1.0.0"); // NOTE(LOGIQ): Make sure this is reflected in pom.xml, plugin.yml and latest.txt!
+    public static final Version CurrentVersion = new Version("1.0.1"); // NOTE(LOGIQ): Make sure this is reflected in pom.xml, plugin.yml and latest.txt!
     public static final String CurrentVersionName = "Foundation";
     public static final String CurrentVersionDescription = "A brand new plugin, wink";
 
