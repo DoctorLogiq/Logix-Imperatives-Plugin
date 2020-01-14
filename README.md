@@ -5,6 +5,7 @@ This is a Spigot 1.15.1 plugin which adds a bunch of useful features designed to
 ### 1.0.1
  - Fixed the bug with `/setRole`. Tab-completion now works with this command!
  - Added a `/note` command. Now you can store 1 note to help you remember things.
+ - Implemented the /debug command.
 
 ## Features:
  - Custom join messages for new and returning players, with extra messages to send directly to the player as they join
