@@ -47,6 +47,14 @@ public class CommandNote implements CommandExecutor, TabCompleter
                 {
                     playerData.note = "";
                     player.sendMessage(ChatColor.DARK_GREEN + "Note cleared.");
+                    if (ImperativesConfig.save())
+                    {
+                        Imperatives.sendSuccessMessage(player, "Config changes made and saved");
+                    }
+                    else
+                    {
+                        Imperatives.sendWarningMessage(player, "Config changes were made but the config did not save. Check the console for errors.");
+                    }
                     return true;
                 }
                 else
@@ -68,6 +76,14 @@ public class CommandNote implements CommandExecutor, TabCompleter
 
                     playerData.note = text.toString();
                     player.sendMessage(ChatColor.DARK_GREEN + "Note set.");
+                    if (ImperativesConfig.save())
+                    {
+                        Imperatives.sendSuccessMessage(player, "Config changes made and saved");
+                    }
+                    else
+                    {
+                        Imperatives.sendWarningMessage(player, "Config changes were made but the config did not save. Check the console for errors.");
+                    }
                     return true;
                 }
                 else
