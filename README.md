@@ -34,7 +34,7 @@ This is a Spigot 1.15.1 plugin which adds a bunch of useful features designed to
  - `/setRole [Player] [Role]`: OP only; sets the role for a given player from the selection available in the config (customizable)
  - `/refresh`: OP only; saves and then loads the config. This may override any changes made to the config since the last time the plugin was enabled. (an argument to not save may come in a later version) 
  - ` /role [Set/Show/Clear] [Text]`: Sets/clears/shows your note. Currently you can have only one note (due to programming constraints). This may change in the future to allow for more.
- - `/debug`: OP only; prints in chat the currently loaded config values
+ - `/debug`: OP only; prints in chat the currently loaded config values.
 
 ## Server owners
 Please update as soon as possible to the new version (1.0.0). Remove your old config file and plugin from your server before adding the new one.
