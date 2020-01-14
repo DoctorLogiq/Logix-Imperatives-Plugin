@@ -19,12 +19,14 @@ public class VersionControl
     public static boolean IsUpdateAvailable;
     public static boolean IsUpdateRecommended;
 
-    public static void checkForUpdates(boolean silent)
+    public static void checkForUpdates(boolean silent, boolean dev)
     {
         // Attempt to load the latest version from GitHub
         try
         {
-            final URL url = new URL("https://raw.githubusercontent.com/DoctorLogiq/Logix-Imperatives-Plugin/master/latest.txt");
+            final URL url = new URL(dev
+                    ? "https://raw.githubusercontent.com/DoctorLogiq/Logix-Imperatives-Plugin/master/latest.txt"
+                    : "https://raw.githubusercontent.com/DoctorLogiq/Logix-Imperatives-Plugin/master/latest-dev.txt");
             final URLConnection connection = url.openConnection();
             final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 

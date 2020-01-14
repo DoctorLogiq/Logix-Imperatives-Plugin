@@ -29,12 +29,13 @@ public class Imperatives extends JavaPlugin
         Debug.initialize(getLogger()); // NOTE(LOGIQ): Must be first, because all functions following this will be logging things.
         ImperativesConfig.load();
         // TODO(LOGIQ): Verify all PlayerData roles
-        VersionControl.checkForUpdates(false);
+        VersionControl.checkForUpdates(false, true); // TODO(LOGIQ): Set dev to false!
 
         // Schedule periodic update check
         // TODO(LOGIQ): Configurable period?
         final int update_check_period_ticks = (20 * 60 * 5);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> VersionControl.checkForUpdates(true), update_check_period_ticks, update_check_period_ticks);
+        // TODO(LOGIQ): Set dev to false!
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> VersionControl.checkForUpdates(true, true), update_check_period_ticks, update_check_period_ticks);
 
         // Register event handlers
         getServer().getPluginManager().registerEvents(PlayerLoginEvent.Instance, this);
